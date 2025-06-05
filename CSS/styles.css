@@ -106,13 +106,13 @@ body {
 .nav__imgs{
 
     display: block;
-    width: 60px;
+    width: 61px;
    
 }
 
 .nav__imgs:hover {
   transform: scale(1.2);
-  transition-duration: 0.5s;
+  transition-duration: 0.7s;
 }
 
 
