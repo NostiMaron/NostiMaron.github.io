@@ -125,21 +125,35 @@ body {
 
 }
 
-.hero__title{
+
+.hero__title {
     animation: fadeInDown 1s ease-out forwards;
     font-family: 'Aachenn', sans-serif;
     font-weight: bold;
-    font-size: 6rem;
+    /* Ajustamos de forma fluida el tamaño del título */
+    font-size: clamp(1rem, 8vw, 6rem);
     
-  color: white;
-  text-shadow: 
-    -3px -3px 0 black,
-     3px -3px 0 black,
-    -3px  3px 0 black,
-     3px  3px 0 black;
+    color: white;
+    text-shadow: 
+        -3px -3px 0 black,
+         3px -3px 0 black,
+        -3px  3px 0 black,
+         3px  3px 0 black;
+    /* Evitamos saltos de línea y mantenemos todo en la misma línea */
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Opcional: Si deseas afinar aún más en pantallas muy pequeñas, puedes usar un media query */
+@media (max-width: 480px) {
+  .hero__title {
+    /* Aquí puedes reducir aún más el tamaño si es necesario */
+    font-size: clamp(1em, 8vw, 5rem);
+  }
 }
     
-}
+
 
 .hero__paragraph{
     font-family: 'aachenn', sans-serif;
@@ -613,6 +627,9 @@ footer::before {
         font-size: 2.5rem;
     }
 
+    .custom-title{
+        font-size: 2.5rem;
+    }
 
     .about__main{
         gap: 2em;
@@ -683,8 +700,12 @@ footer::before {
 
 }
 
-@media (max-width:600px){
+@media (max-width:700px){
     .hero__title{
+        font-size: 2rem;
+    }
+
+    .custom-title{
         font-size: 2rem;
     }
 
@@ -778,8 +799,8 @@ footer::before {
 }*/
 
 .custom-title {
+  font-size: clamp(1rem, 8vw, 6rem);
   font-family: 'aachenn', sans-serif;
-  font-size: 6rem;
   color: #fff;
   display: flex;
   align-items: center;
