@@ -103,6 +103,19 @@ body {
    
 }
 
+.nav__imgs{
+
+    display: block;
+    width: 60px;
+   
+}
+
+.nav__imgs:hover {
+  transform: scale(1.2);
+  transition-duration: 0.5s;
+}
+
+
 .nav__close{
     display: var(--show, none);
 }
