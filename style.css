@@ -1,0 +1,727 @@
+@font-face {
+    font-family: 'Puppeth'; /* El nombre que tú quieras darle */
+    src: url('fonts/ChildWriting-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Archivo'; /* El nombre que tú quieras darle */
+    src: url('fonts/Archivo_Expanded-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* --- Estilos Globales y Reset --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif; /* Reemplazar con tus fuentes */
+    color: #000000;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden; /* Evita scroll horizontal por animaciones */
+}
+
+/* --- Simulación de Textura de Ruido --- */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('img/tv-static.gif');
+    opacity: 0.1; /* Ajustar opacidad del ruido */
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* --- Tipografía --- */
+.hero__title,
+.lore__title{
+    font-family: Puppeth; /* Reemplazar con tu fuente script */
+    text-align: center;
+}
+   
+.footer__title {
+    font-family: 'Permanent Marker', cursive; /* Reemplazar con tu fuente script */
+    text-align: center;
+}
+
+/* --- Contenedor Principal --- */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- Header --- */
+.header {
+    background-color: transparent; /* Transparente para que se vea el fondo del hero */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999; 
+    transition: all 0.3s ease;
+}
+
+.header--scrolled {
+    background-color: rgba(0, 0, 0, 0.3); /* Se oscurece al scroll */
+    backdrop-filter: blur(8px); /* Se difumina el fondo */
+    -webkit-backdrop-filter: blur(8px);
+    padding-bottom: 10px; /* Ajuste opcional para darle aire */
+}
+
+.header__container {
+    flex-direction: row;
+    justify-content: flex-end; /* Los mueve hacia la derecha */
+    padding: 15px 180px 15px 20px; /* Padding derecho para que no choquen con el sticker */
+    max-width: 100%;
+    position: relative;
+}
+
+.header__logo-wrapper {
+    background-color: #ffffff;
+    border: 3px solid #000000;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 20px;
+    top: 15px;
+    box-shadow: -4px 4px 0px rgba(0, 0, 0, 0.1);
+    
+    /* Animación Hover */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+.header__logo-wrapper:hover {
+    transform: scale(1.15) rotate(-15deg);
+    box-shadow: -8px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
+.header__logo-wrapper:active {
+    transform: scale(0.95) rotate(5deg);
+    box-shadow: -2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.header__logo {
+    width: 75%; /* El logo interno un poco más pequeño que el círculo */
+    height: auto;
+}
+
+.header__nav {
+    display: flex;
+    gap: 15px;
+    font-size: 14px;
+}
+
+/* --- Estilo de Botones tipo Sticker (Nav) --- */
+
+.header__link {
+    font-family: Puppeth;
+    font-size: 22px; /* Más grande */
+    text-decoration: none;
+    color: #000000;
+    font-weight: 700;
+    text-transform: lowercase;
+    
+    background-color: #ffffff;
+    border: 3px solid #000000; /* Borde un poco más grueso */
+    padding: 12px 30px; /* Más espacio */
+    border-radius: 50px;
+    
+    /* Sombra más marcada */
+    box-shadow: -4px 4px 0px #000000; 
+    
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+/* Efecto al pasar el mouse (opcional, pero queda muy bien) */
+.header__link:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: -6px 6px 0px #000000;
+}
+
+/* Efecto al hacer clic */
+.header__link:active {
+    transform: translate(2px, 2px);
+    box-shadow: -1px 1px 0px #000000;
+}
+
+/* Ajuste para el icono de 'X' para que sea igual a los demás */
+.header__link--icon {
+    padding: 12px 18px;
+    min-width: 50px;
+    text-align: center;
+}
+
+/* --- Ajuste para el contenedor en Desktop --- */
+.header__nav {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-top: 40px; /* Baja los botones un poco */
+    margin-right: 186px;
+}
+
+.header__link--icon {
+    font-family: sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+/* --- Hero --- */
+.hero {
+    background-color: #769cea; /* Color de fondo claro */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 80px; /* Espacio para el nav bar fijo */
+}
+
+.hero__container {
+    text-align: center;
+}
+
+/* --- Estilo de Pegatina "OG ETH MASCOT!" --- */
+
+.header__badge {
+    /* 1. Posicionamiento: Sale de la esquina superior derecha */
+    position: absolute;
+    top: -10px;
+    right: -29px;
+    z-index: 100;
+    
+    /* 2. Estilo Visual (Sticker Negro) */
+    background-color: #000000;
+    color: #ffffff;
+    font-family: Puppeth;
+    font-weight: 700;
+    font-size: 50px; /* Aún más grande */
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    line-height: 1;
+    
+    /* 3. Borde Grueso Blanco */
+    border: 6px solid #ffffff; /* Borde más grueso */
+    padding: 35px 65px 30px 45px; /* Más padding */
+    border-radius: 50px;
+    
+    /* 4. Inclinación de Sticker (Al revés) */
+    transform: rotate(-10deg); /* Un poco más inclinado */
+    
+    /* 5. Sombra para profundidad */
+    box-shadow: -8px 8px 0px rgb(0, 0, 0);
+    
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* --- Efectos al pasar el mouse (Hover) --- */
+.header__badge:hover {
+    transform: rotate(-5deg) scale(1.05);
+    box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Efecto al hacer clic --- */
+.header__badge:active {
+    transform: rotate(-12deg) scale(0.95);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+.hero__character {
+    width: 225px;
+    height: auto;
+    margin-top: 170px;
+    
+    /* Animaciones */
+    rotate: var(--scroll-rot, 0deg);
+    animation: mascotFloat 4s ease-in-out infinite;
+    transition: rotate 0.4s ease-out; /* Transición para suavizar la rotación al hacer scroll */
+
+  /* 1. Capas para el borde BLANCO (3px) */
+  filter: 
+    drop-shadow(5px 0 0 white) 
+    drop-shadow(-5px 0 0 white) 
+    drop-shadow(0 5px 0 white) 
+    drop-shadow(0 -5px 0 white)
+    
+    /* 2. Capas para el contorno NEGRO (1px extra) */
+    drop-shadow(4px 0 0 black) 
+    drop-shadow(-4px 0 0 black) 
+    drop-shadow(0 4px 0 black) 
+    drop-shadow(0 -4px 0 black);
+
+    
+}
+
+@keyframes mascotFloat {
+    0%, 100% { 
+        translate: 0 0px; 
+        scale: 1;
+    }
+    50% { 
+        translate: 0 -5px; /* Movimiento más sutil */
+        scale: 1.04; /* Expansión simulando respiración */
+    }
+}
+
+.hero__title {
+    font-size: 60px;
+    line-height: 1.1;
+    margin: 20px 0;
+    position: relative;
+    display: inline-block;
+}
+
+.hero__title::after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 15px;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MCAxMCI+PHBhdGggZD0iTTAgNWMwLTIuOCA4LTUgMjUtNXMzMCAwIDMwIDVzLTMwIDUtMzAtNVMyLjIgMi44IDAgNXoiIGZpbGw9InRyYW5zcGFyZW50Ii8+PC9zdmc+');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.hero__title--highlight {
+    font-family: Puppeth;
+    display: block;
+    margin-top: 10px;
+    position: relative;
+}
+
+.hero__title--highlight::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -10px;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    z-index: -1;
+    border-radius: 10px;
+}
+
+.hero__subtitle {
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+/* --- Contenedor del Banner Principal --- */
+.hero__main-banner {
+    width: 100%;
+    max-width: 550px; /* Un poco más ancho para que luzca bien todo el texto */
+    margin: 10px auto 0 auto; /* Pegado un poco más a la mascota arriba */
+    display: flex;
+    justify-content: center;
+    
+    /* Estado inicial oculto (entra desde el "fondo" y abajo) */
+    opacity: 0;
+    transform: translateY(60px) scale(0.8);
+    transition: opacity 0.6s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Clase que se activa con JS al hacer scroll */
+.hero__main-banner.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.hero__banner-img {
+    width: 70%;
+    margin-top: 65px;
+    height: auto;
+    display: block;
+    
+    /* Filtro de resplandor blanco para que resalte sobre el fondo azulado */
+    filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.6));
+    
+    /* Pequeña animación de flotado suave (opcional, le da mucha vida) */
+    animation: float 4s ease-in-out infinite;
+}
+
+/* Animación de flotación suave (usando translate para no chocar con transform) */
+@keyframes float {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -15px; }
+}
+
+/* --- Lore --- */
+.lore {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 100px 0 0 0;
+}
+
+.lore__container {
+    text-align: center;
+    max-width: 500px; /* Reducir ancho para el texto del lore */
+}
+
+.lore__title {
+    font-size: 40px;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    
+    /* Animación de entrada igual a "Hi I am Puppeth" */
+    opacity: 0;
+    transform: translateY(60px) scale(0.8);
+    transition: opacity 0.6s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.lore__title.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.lore__step {
+    margin-bottom: 30px;
+}
+
+/* Animaciones para los párrafos (se añaden clases vía JS) */
+.slide-from-right {
+    opacity: 0;
+    transform: translateX(100px);
+    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.slide-from-left {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.slide-from-right.visible,
+.slide-from-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.lore__text {
+    font-family: Archivo;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.lore__text--highlight {
+    font-weight: 700;
+    color: #769cea; /* Azul como el fondo del hero */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.lore__text--highlight:hover {
+    color: #BED8E5; /* Cambio de color al pasar el mouse */
+    text-decoration: underline;
+}
+
+.lore__arrow {
+    display: block;
+    width: 30px; /* Tamaño ajustable de la flecha */
+    height: auto;
+    margin: 0 auto 30px auto;
+}
+
+.lore__link-block {
+    margin-bottom: 30px;
+}
+
+.lore__link {
+    font-family: Puppeth;
+    font-size: 22px;
+    text-decoration: none;
+    color: #000000;
+    font-weight: 700;
+    text-transform: lowercase;
+    
+    background-color: #ffffff;
+    border: 3px solid #000000;
+    padding: 12px 30px;
+    border-radius: 50px;
+    
+    box-shadow: -4px 4px 0px #000000;
+    
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.lore__link:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: -6px 6px 0px #000000;
+}
+
+.lore__link:active {
+    transform: translate(2px, 2px);
+    box-shadow: -1px 1px 0px #000000;
+}
+
+.lore__character-small {
+    width: 100px; /* Un poco más grande como pidió el usuario */
+    height: auto;
+    margin-bottom: 30px;
+    
+    /* Animación de entrada similar al título */
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.lore__character-small.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.lore__photo-block {
+    position: relative;
+    width: 100%;
+    max-width: 550px; /* Tamaño del tweet */
+    margin: 50px auto -220px auto; /* Overlap ajustado para centrar */
+    z-index: 10;
+    
+    /* Rotación controlada por el scroll igual que la mascota */
+    rotate: var(--scroll-rot-tweet, -2deg);
+    transition: rotate 0.4s ease-out;
+}
+
+.lore__photo {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px;
+    border: 8px solid #bed8e5; /* Contorno azul similar a Twitter */
+   
+}
+
+/* --- Footer --- */
+.footer {
+    background-color: #BED8E5; 
+    padding: 280px 0 80px 0; /* Más padding arriba por el solapamiento */
+    position: relative;
+}
+
+.footer__container {
+    align-items: center;
+    max-width: 800px;
+}
+
+.footer__title {
+    font-size: 30px;
+    margin-bottom: 50px;
+}
+
+.footer__nav-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr; /* Tres columnas para centrar el logo */
+    align-items: center;
+    margin-top: 60px;
+}
+
+.footer__logo {
+    grid-column: 2; /* Logo en el centro */
+    width: 70px;
+    height: 70px;
+    background-color: #ffffff;
+    border: 3px solid #000000;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: -4px 4px 0px rgba(0,0,0,0.1);
+    
+    /* Animación Hover */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+.footer__logo:hover {
+    transform: scale(1.15) rotate(-15deg);
+    box-shadow: -8px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
+.footer__logo:active {
+    transform: scale(0.95) rotate(5deg);
+    box-shadow: -2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.footer__nav {
+    grid-column: 3; /* Nav a la derecha */
+    justify-self: end;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-right: -200px;
+}
+
+.footer__link {
+    font-family: Puppeth;
+    font-size: 20px;
+    text-decoration: none;
+    color: #000000;
+    font-weight: 700;
+    text-transform: lowercase;
+    background-color: #ffffff;
+    border: 3px solid #000000;
+    padding: 10px 25px;
+    border-radius: 50px;
+    box-shadow: -3px 3px 0px #000000;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.footer__link:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: -4px 4px 0px #000000;
+}
+
+.footer__link--icon {
+    min-width: 45px;
+    text-align: center;
+    padding: 10px 15px;
+}
+
+/* --- Contenedor de la imagen de cierre en el Footer --- */
+.footer__title-wrapper {
+    width: 100%;
+    max-width: 500px; /* Tamaño similar al del título principal para mantener equilibrio */
+    margin: 0 auto 60px auto; /* Centrado y con bastante espacio antes de la nav */
+    display: flex;
+    justify-content: center;
+
+    /* Animación de entrada igual a "Hi I am Puppeth" */
+    opacity: 0;
+    transform: translateY(60px) scale(0.8);
+    transition: opacity 0.6s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.footer__title-wrapper.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.footer__title-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    
+    /* Resplandor blanco/azulado para que resalte sobre el fondo claro */
+    filter: drop-shadow(0px 0px 15px rgba(255, 255, 255, 0.7));
+    
+    /* Inclinación base */
+    transform: rotate(-1deg);
+    
+    /* Nueva animación de flotación */
+    animation: float 5s ease-in-out infinite;
+}
+
+
+
+/* =========================================
+   Adaptación para Móviles (Max Width: 800px)
+   ========================================= */
+@media screen and (max-width: 800px) {
+    /* --- Contenedor Global --- */
+    .container {
+        padding: 0 15px; /* Reducimos un poco el margen lateral para ganar espacio */
+    }
+
+    /* --- Header --- */
+    .header__container {
+        padding: 15px; /* Menos padding superior/inferior */
+    }
+    
+    .header__logo {
+        width: 40px; /* Logo un poco más pequeño */
+    }
+
+    .header__nav {
+        gap: 10px; /* Acercamos los enlaces */
+        font-size: 12px; /* Reducimos la fuente para que no se desborde */
+    }
+
+    /* --- Hero Section --- */
+    .hero__title {
+        font-size: 42px; /* El título de 60px es muy grande para móviles */
+        margin: 15px 0;
+    }
+
+    .header__badge {
+        font-size: 14px;
+        padding: 10px 25px 10px 15px;
+        top: -5px;
+        right: -5px;
+        border-width: 3px;
+    }
+
+    .hero__subtitle {
+        font-size: 14px;
+    }
+    
+    .hero__character {
+        width: 120px;
+    }
+
+    /* --- Lore Section --- */
+    .lore {
+        padding: 60px 0 0 0; /* Reducimos el espacio y quitamos padding inferior */
+    }
+
+    .lore__title {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+
+    .lore__text {
+        font-size: 15px; /* Texto ligeramente más pequeño para mejor lectura en pantallas estrechas */
+    }
+
+    .lore__photo-block {
+        margin-top: 30px; /* Menos margen arriba de la foto */
+        margin-bottom: -150px; /* Ajuste del overlap para móviles */
+    }
+
+    /* --- Footer Section --- */
+    .footer {
+        padding: 200px 0 50px 0;
+    }
+
+    .footer__title {
+        font-size: 26px;
+        margin-bottom: 30px;
+    }
+
+    .footer__nav-container {
+        /* En móviles, apilamos el logo y la navegación verticalmente para que no choquen */
+        flex-direction: column; 
+        gap: 20px;
+    }
+}
