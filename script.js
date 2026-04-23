@@ -10,7 +10,7 @@ window.addEventListener('scroll', () => {
     const heroCharacter = document.querySelector('.hero__character');
     if (heroCharacter) {
         // Inclinación basada en el scroll (multiplicador reducido para hacerlo más sutil)
-        const rotation = window.scrollY * 0.03; 
+        const rotation = window.scrollY * 0.03;
         heroCharacter.style.setProperty('--scroll-rot', `${rotation}deg`);
     }
 
@@ -23,7 +23,7 @@ window.addEventListener('scroll', () => {
             // Calculamos cuánto ha entrado en pantalla
             const visibleOffset = window.innerHeight - rect.top;
             // Empieza en -2 grados y suma una rotación muy suave (0.005) a medida que sube
-            const tweetRotation = -2 + (visibleOffset * 0.005); 
+            const tweetRotation = -2 + (visibleOffset * 0.005);
             // Limitamos un poco la rotación máxima para que nunca sea ilegible (ej. de -2 a 3 grados máximo)
             const clampedRotation = Math.min(tweetRotation, 3);
             tweetBlock.style.setProperty('--scroll-rot-tweet', `${clampedRotation}deg`);
@@ -89,4 +89,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if (footerTitle) {
         loreObserver.observe(footerTitle);
     }
+
+    // Lógica del Menú Hamburguesa
+    const burgerMenu = document.getElementById('burger-menu');
+    const header = document.querySelector('.header');
+    const navLinks = document.querySelectorAll('.header__link');
+
+    if (burgerMenu) {
+        burgerMenu.addEventListener('click', () => {
+            header.classList.toggle('is-open');
+        });
+    }
+
+    // Cerrar menú al hacer clic en un enlace
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            header.classList.remove('is-open');
+        });
+    });
 });

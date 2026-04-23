@@ -1,30 +1,47 @@
 @font-face {
-    font-family: 'Puppeth'; /* El nombre que tú quieras darle */
+    font-family: 'Puppeth';
+    /* El nombre que tú quieras darle */
     src: url('fonts/ChildWriting-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Archivo'; /* El nombre que tú quieras darle */
+    font-family: 'Archivo';
+    /* El nombre que tú quieras darle */
     src: url('fonts/Archivo_Expanded-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
-/* --- Estilos Globales y Reset --- */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
 body {
-    font-family: 'Montserrat', sans-serif; /* Reemplazar con tus fuentes */
+    font-family: 'Montserrat', sans-serif;
+    /* Reemplazar con tus fuentes */
     color: #000000;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden; /* Evita scroll horizontal por animaciones */
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+}
+
+html {
+    overflow-x: hidden;
+    width: 100%;
 }
 
 /* --- Simulación de Textura de Ruido --- */
@@ -33,28 +50,33 @@ body::before {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    /* Cambiamos 100vw por 100% para evitar scroll horizontal por el scrollbar */
+    height: 100%;
     background-image: url('img/tv-static.gif');
-    opacity: 0.1; /* Ajustar opacidad del ruido */
+    opacity: 0.1;
+    /* Ajustar opacidad del ruido */
     pointer-events: none;
     z-index: 0;
 }
 
 /* --- Tipografía --- */
 .hero__title,
-.lore__title{
-    font-family: Puppeth; /* Reemplazar con tu fuente script */
+.lore__title {
+    font-family: Puppeth;
+    /* Reemplazar con tu fuente script */
     text-align: center;
 }
-   
+
 .footer__title {
-    font-family: 'Permanent Marker', cursive; /* Reemplazar con tu fuente script */
+    font-family: 'Permanent Marker', cursive;
+    /* Reemplazar con tu fuente script */
     text-align: center;
 }
 
 /* --- Contenedor Principal --- */
 .container {
+    width: 100%;
     max-width: 600px;
     margin: 0 auto;
     padding: 0 20px;
@@ -65,26 +87,32 @@ body::before {
 
 /* --- Header --- */
 .header {
-    background-color: transparent; /* Transparente para que se vea el fondo del hero */
+    background-color: transparent;
+    /* Transparente para que se vea el fondo del hero */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 9999; 
+    z-index: 9999;
     transition: all 0.3s ease;
 }
 
 .header--scrolled {
-    background-color: rgba(0, 0, 0, 0.3); /* Se oscurece al scroll */
-    backdrop-filter: blur(8px); /* Se difumina el fondo */
+    background-color: rgba(0, 0, 0, 0.3);
+    /* Se oscurece al scroll */
+    backdrop-filter: blur(8px);
+    /* Se difumina el fondo */
     -webkit-backdrop-filter: blur(8px);
-    padding-bottom: 10px; /* Ajuste opcional para darle aire */
+    padding-bottom: 10px;
+    /* Ajuste opcional para darle aire */
 }
 
 .header__container {
     flex-direction: row;
-    justify-content: flex-end; /* Los mueve hacia la derecha */
-    padding: 15px 180px 15px 20px; /* Padding derecho para que no choquen con el sticker */
+    justify-content: flex-end;
+    /* Los mueve hacia la derecha */
+    padding: 15px 180px 15px 20px;
+    /* Padding derecho para que no choquen con el sticker */
     max-width: 100%;
     position: relative;
 }
@@ -102,7 +130,7 @@ body::before {
     left: 20px;
     top: 15px;
     box-shadow: -4px 4px 0px rgba(0, 0, 0, 0.1);
-    
+
     /* Animación Hover */
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
@@ -119,7 +147,8 @@ body::before {
 }
 
 .header__logo {
-    width: 75%; /* El logo interno un poco más pequeño que el círculo */
+    width: 75%;
+    /* El logo interno un poco más pequeño que el círculo */
     height: auto;
 }
 
@@ -129,24 +158,70 @@ body::before {
     font-size: 14px;
 }
 
+/* --- Botón Hamburger --- */
+.header__burger {
+    display: none;
+    /* Oculto por defecto en desktop */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10001;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.header__burger span {
+    width: 30px;
+    height: 4px;
+    background: #000000;
+    border-radius: 10px;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: 1px;
+}
+
+/* Animación a 'X' cuando está abierto */
+.header.is-open .header__burger span:first-child {
+    transform: rotate(45deg);
+}
+
+.header.is-open .header__burger span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.header.is-open .header__burger span:nth-child(3) {
+    transform: rotate(-45deg);
+}
+
 /* --- Estilo de Botones tipo Sticker (Nav) --- */
 
 .header__link {
     font-family: Puppeth;
-    font-size: 22px; /* Más grande */
+    font-size: 22px;
+    /* Más grande */
     text-decoration: none;
     color: #000000;
     font-weight: 700;
     text-transform: lowercase;
-    
+
     background-color: #ffffff;
-    border: 3px solid #000000; /* Borde un poco más grueso */
-    padding: 12px 30px; /* Más espacio */
+    border: 3px solid #000000;
+    /* Borde un poco más grueso */
+    padding: 12px 30px;
+    /* Más espacio */
     border-radius: 50px;
-    
+
     /* Sombra más marcada */
-    box-shadow: -4px 4px 0px #000000; 
-    
+    box-shadow: -4px 4px 0px #000000;
+
     transition: all 0.2s ease;
     display: inline-block;
 }
@@ -175,7 +250,8 @@ body::before {
     display: flex;
     gap: 15px;
     align-items: center;
-    margin-top: 40px; /* Baja los botones un poco */
+    margin-top: 40px;
+    /* Baja los botones un poco */
     margin-right: 186px;
 }
 
@@ -194,12 +270,14 @@ body::before {
 
 /* --- Hero --- */
 .hero {
-    background-color: #769cea; /* Color de fondo claro */
+    background-color: #769cea;
+    /* Color de fondo claro */
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 80px; /* Espacio para el nav bar fijo */
+    padding-top: 80px;
+    /* Espacio para el nav bar fijo */
 }
 
 .hero__container {
@@ -214,29 +292,33 @@ body::before {
     top: -10px;
     right: -29px;
     z-index: 100;
-    
+
     /* 2. Estilo Visual (Sticker Negro) */
     background-color: #000000;
     color: #ffffff;
     font-family: Puppeth;
     font-weight: 700;
-    font-size: 50px; /* Aún más grande */
+    font-size: 50px;
+    /* Aún más grande */
     text-transform: uppercase;
     text-decoration: none;
     text-align: center;
     line-height: 1;
-    
+
     /* 3. Borde Grueso Blanco */
-    border: 6px solid #ffffff; /* Borde más grueso */
-    padding: 35px 65px 30px 45px; /* Más padding */
+    border: 6px solid #ffffff;
+    /* Borde más grueso */
+    padding: 35px 65px 30px 45px;
+    /* Más padding */
     border-radius: 50px;
-    
+
     /* 4. Inclinación de Sticker (Al revés) */
-    transform: rotate(-10deg); /* Un poco más inclinado */
-    
+    transform: rotate(-10deg);
+    /* Un poco más inclinado */
+
     /* 5. Sombra para profundidad */
     box-shadow: -8px 8px 0px rgb(0, 0, 0);
-    
+
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: inline-block;
     cursor: pointer;
@@ -258,36 +340,35 @@ body::before {
     width: 225px;
     height: auto;
     margin-top: 170px;
-    
+
     /* Animaciones */
     rotate: var(--scroll-rot, 0deg);
     animation: mascotFloat 4s ease-in-out infinite;
-    transition: rotate 0.4s ease-out; /* Transición para suavizar la rotación al hacer scroll */
+    transition: rotate 0.4s ease-out;
+    /* Transición para suavizar la rotación al hacer scroll */
 
-  /* 1. Capas para el borde BLANCO (3px) */
-  filter: 
-    drop-shadow(5px 0 0 white) 
-    drop-shadow(-5px 0 0 white) 
-    drop-shadow(0 5px 0 white) 
-    drop-shadow(0 -5px 0 white)
-    
-    /* 2. Capas para el contorno NEGRO (1px extra) */
-    drop-shadow(4px 0 0 black) 
-    drop-shadow(-4px 0 0 black) 
-    drop-shadow(0 4px 0 black) 
-    drop-shadow(0 -4px 0 black);
+    /* 1. Capas para el borde BLANCO (3px) */
+    filter:
+        drop-shadow(5px 0 0 white) drop-shadow(-5px 0 0 white) drop-shadow(0 5px 0 white) drop-shadow(0 -5px 0 white)
+        /* 2. Capas para el contorno NEGRO (1px extra) */
+        drop-shadow(4px 0 0 black) drop-shadow(-4px 0 0 black) drop-shadow(0 4px 0 black) drop-shadow(0 -4px 0 black);
 
-    
+
 }
 
 @keyframes mascotFloat {
-    0%, 100% { 
-        translate: 0 0px; 
+
+    0%,
+    100% {
+        translate: 0 0px;
         scale: 1;
     }
-    50% { 
-        translate: 0 -5px; /* Movimiento más sutil */
-        scale: 1.04; /* Expansión simulando respiración */
+
+    50% {
+        translate: 0 -5px;
+        /* Movimiento más sutil */
+        scale: 1.04;
+        /* Expansión simulando respiración */
     }
 }
 
@@ -341,11 +422,13 @@ body::before {
 /* --- Contenedor del Banner Principal --- */
 .hero__main-banner {
     width: 100%;
-    max-width: 550px; /* Un poco más ancho para que luzca bien todo el texto */
-    margin: 10px auto 0 auto; /* Pegado un poco más a la mascota arriba */
+    max-width: 550px;
+    /* Un poco más ancho para que luzca bien todo el texto */
+    margin: 10px auto 0 auto;
+    /* Pegado un poco más a la mascota arriba */
     display: flex;
     justify-content: center;
-    
+
     /* Estado inicial oculto (entra desde el "fondo" y abajo) */
     opacity: 0;
     transform: translateY(60px) scale(0.8);
@@ -363,18 +446,25 @@ body::before {
     margin-top: 65px;
     height: auto;
     display: block;
-    
+
     /* Filtro de resplandor blanco para que resalte sobre el fondo azulado */
     filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.6));
-    
+
     /* Pequeña animación de flotado suave (opcional, le da mucha vida) */
     animation: float 4s ease-in-out infinite;
 }
 
 /* Animación de flotación suave (usando translate para no chocar con transform) */
 @keyframes float {
-    0%, 100% { translate: 0 0; }
-    50% { translate: 0 -15px; }
+
+    0%,
+    100% {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 -15px;
+    }
 }
 
 /* --- Lore --- */
@@ -386,14 +476,15 @@ body::before {
 
 .lore__container {
     text-align: center;
-    max-width: 500px; /* Reducir ancho para el texto del lore */
+    max-width: 500px;
+    /* Reducir ancho para el texto del lore */
 }
 
 .lore__title {
     font-size: 40px;
     margin-bottom: 50px;
     text-transform: uppercase;
-    
+
     /* Animación de entrada igual a "Hi I am Puppeth" */
     opacity: 0;
     transform: translateY(60px) scale(0.8);
@@ -436,19 +527,22 @@ body::before {
 
 .lore__text--highlight {
     font-weight: 700;
-    color: #769cea; /* Azul como el fondo del hero */
+    color: #769cea;
+    /* Azul como el fondo del hero */
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .lore__text--highlight:hover {
-    color: #BED8E5; /* Cambio de color al pasar el mouse */
+    color: #BED8E5;
+    /* Cambio de color al pasar el mouse */
     text-decoration: underline;
 }
 
 .lore__arrow {
     display: block;
-    width: 30px; /* Tamaño ajustable de la flecha */
+    width: 30px;
+    /* Tamaño ajustable de la flecha */
     height: auto;
     margin: 0 auto 30px auto;
 }
@@ -464,14 +558,14 @@ body::before {
     color: #000000;
     font-weight: 700;
     text-transform: lowercase;
-    
+
     background-color: #ffffff;
     border: 3px solid #000000;
     padding: 12px 30px;
     border-radius: 50px;
-    
+
     box-shadow: -4px 4px 0px #000000;
-    
+
     transition: all 0.2s ease;
     display: inline-block;
 }
@@ -487,10 +581,11 @@ body::before {
 }
 
 .lore__character-small {
-    width: 100px; /* Un poco más grande como pidió el usuario */
+    width: 100px;
+    /* Un poco más grande como pidió el usuario */
     height: auto;
     margin-bottom: 30px;
-    
+
     /* Animación de entrada similar al título */
     opacity: 0;
     transform: scale(0.5);
@@ -505,10 +600,12 @@ body::before {
 .lore__photo-block {
     position: relative;
     width: 100%;
-    max-width: 550px; /* Tamaño del tweet */
-    margin: 50px auto -220px auto; /* Overlap ajustado para centrar */
+    max-width: 550px;
+    /* Tamaño del tweet */
+    margin: 50px auto -220px auto;
+    /* Overlap ajustado para centrar */
     z-index: 10;
-    
+
     /* Rotación controlada por el scroll igual que la mascota */
     rotate: var(--scroll-rot-tweet, -2deg);
     transition: rotate 0.4s ease-out;
@@ -519,14 +616,16 @@ body::before {
     height: auto;
     display: block;
     border-radius: 15px;
-    border: 8px solid #bed8e5; /* Contorno azul similar a Twitter */
-   
+    border: 8px solid #bed8e5;
+    /* Contorno azul similar a Twitter */
+
 }
 
 /* --- Footer --- */
 .footer {
-    background-color: #BED8E5; 
-    padding: 280px 0 80px 0; /* Más padding arriba por el solapamiento */
+    background-color: #BED8E5;
+    padding: 280px 0 80px 0;
+    /* Más padding arriba por el solapamiento */
     position: relative;
 }
 
@@ -543,21 +642,24 @@ body::before {
 .footer__nav-container {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr auto 1fr; /* Tres columnas para centrar el logo */
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 columnas iguales para centrado perfecto */
     align-items: center;
     margin-top: 60px;
 }
 
 .footer__logo {
-    grid-column: 2; /* Logo en el centro */
+    grid-column: 2;
+    /* Logo en el centro */
+    justify-self: center;
     width: 70px;
     height: 70px;
     background-color: #ffffff;
     border: 3px solid #000000;
     border-radius: 50%;
     padding: 10px;
-    box-shadow: -4px 4px 0px rgba(0,0,0,0.1);
-    
+    box-shadow: -4px 4px 0px rgba(0, 0, 0, 0.1);
+
     /* Animación Hover */
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
@@ -574,12 +676,12 @@ body::before {
 }
 
 .footer__nav {
-    grid-column: 3; /* Nav a la derecha */
+    grid-column: 3;
+    /* Nav a la derecha */
     justify-self: end;
     display: flex;
     gap: 15px;
     align-items: center;
-    margin-right: -200px;
 }
 
 .footer__link {
@@ -612,8 +714,10 @@ body::before {
 /* --- Contenedor de la imagen de cierre en el Footer --- */
 .footer__title-wrapper {
     width: 100%;
-    max-width: 500px; /* Tamaño similar al del título principal para mantener equilibrio */
-    margin: 0 auto 60px auto; /* Centrado y con bastante espacio antes de la nav */
+    max-width: 500px;
+    /* Tamaño similar al del título principal para mantener equilibrio */
+    margin: 0 auto 60px auto;
+    /* Centrado y con bastante espacio antes de la nav */
     display: flex;
     justify-content: center;
 
@@ -621,6 +725,13 @@ body::before {
     opacity: 0;
     transform: translateY(60px) scale(0.8);
     transition: opacity 0.6s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.footer__title-wrapper a {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .footer__title-wrapper.visible {
@@ -632,13 +743,13 @@ body::before {
     width: 100%;
     height: auto;
     display: block;
-    
+
     /* Resplandor blanco/azulado para que resalte sobre el fondo claro */
     filter: drop-shadow(0px 0px 15px rgba(255, 255, 255, 0.7));
-    
+
     /* Inclinación base */
     transform: rotate(-1deg);
-    
+
     /* Nueva animación de flotación */
     animation: float 5s ease-in-out infinite;
 }
@@ -646,53 +757,125 @@ body::before {
 
 
 /* =========================================
-   Adaptación para Móviles (Max Width: 800px)
+   Adaptación para Móviles (Max Width: 950px)
    ========================================= */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 950px) {
+
     /* --- Contenedor Global --- */
     .container {
-        padding: 0 15px; /* Reducimos un poco el margen lateral para ganar espacio */
+        padding: 0 15px;
+        /* Reducimos un poco el margen lateral para ganar espacio */
     }
 
     /* --- Header --- */
     .header__container {
-        padding: 15px; /* Menos padding superior/inferior */
+        padding: 15px 20px;
+        /* Menos padding superior/inferior y reseteamos el lateral */
+        justify-content: center;
+        /* Centramos la navegación al quitar el sticker */
     }
-    
+
     .header__logo {
-        width: 40px; /* Logo un poco más pequeño */
+        width: 40px;
+        /* Logo un poco más pequeño */
     }
 
     .header__nav {
-        gap: 10px; /* Acercamos los enlaces */
-        font-size: 12px; /* Reducimos la fuente para que no se desborde */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        /* Acercamos los enlaces */
+        font-size: 12px;
+        /* Reducimos la fuente para que no se desborde */
+        margin-right: 0;
+        margin-top: 20px;
+        width: 100%;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    /* --- Lógica de Menú Hamburguesa (< 700px) --- */
+    @media screen and (max-width: 700px) {
+        .header__burger {
+            display: flex;
+        }
+
+        .header__nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100vh;
+            width: 70%;
+            background-color: #BED8E5;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            transform: translateX(100%);
+            /* Escondido a la derecha */
+            z-index: 10000;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            margin-top: 0;
+            padding: 20px;
+        }
+
+        .header.is-open .header__nav {
+            transform: translateX(0);
+            /* Mostrar cuando el header tiene la clase is-open */
+        }
+
+        .header__link {
+            font-size: 24px;
+            width: 80%;
+            text-align: center;
+        }
+
+        .header__container {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            width: 100%;
+        }
+        
+        .header__logo-wrapper {
+            position: static; /* Volvemos a flujo normal para que space-between funcione */
+            width: 60px; /* Un poco más pequeño en mobile */
+            height: 60px;
+            transform: none;
+        }
+
+        .header__burger {
+            position: static;
+            transform: none;
+            display: flex;
+        }
     }
 
     /* --- Hero Section --- */
     .hero__title {
-        font-size: 42px; /* El título de 60px es muy grande para móviles */
+        font-size: 42px;
+        /* El título de 60px es muy grande para móviles */
         margin: 15px 0;
     }
 
     .header__badge {
-        font-size: 14px;
-        padding: 10px 25px 10px 15px;
-        top: -5px;
-        right: -5px;
-        border-width: 3px;
+        display: none !important;
+        /* Aseguramos que desaparezca por completo */
     }
 
     .hero__subtitle {
         font-size: 14px;
     }
-    
+
     .hero__character {
         width: 120px;
     }
 
     /* --- Lore Section --- */
     .lore {
-        padding: 60px 0 0 0; /* Reducimos el espacio y quitamos padding inferior */
+        padding: 60px 0 0 0;
+        /* Reducimos el espacio y quitamos padding inferior */
     }
 
     .lore__title {
@@ -701,12 +884,15 @@ body::before {
     }
 
     .lore__text {
-        font-size: 15px; /* Texto ligeramente más pequeño para mejor lectura en pantallas estrechas */
+        font-size: 15px;
+        /* Texto ligeramente más pequeño para mejor lectura en pantallas estrechas */
     }
 
     .lore__photo-block {
-        margin-top: 30px; /* Menos margen arriba de la foto */
-        margin-bottom: -150px; /* Ajuste del overlap para móviles */
+        margin-top: 30px;
+        /* Menos margen arriba de la foto */
+        margin-bottom: -150px;
+        /* Ajuste del overlap para móviles */
     }
 
     /* --- Footer Section --- */
@@ -720,8 +906,22 @@ body::before {
     }
 
     .footer__nav-container {
-        /* En móviles, apilamos el logo y la navegación verticalmente para que no choquen */
-        flex-direction: column; 
-        gap: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        width: 100%;
+    }
+
+    .footer__nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin-right: 0;
+    }
+
+    .footer__logo {
+        grid-column: auto;
     }
 }
